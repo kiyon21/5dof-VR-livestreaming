@@ -1,6 +1,5 @@
 # 5DOF-VR-LiveStreaming 🚀
 
-**Renamed from “6ixSense VR”**
 
 This repository contains the code, hardware designs, and documentation for **5DOF-VR-LiveStreaming**, a system that enables near–six degrees of freedom (5 DoF) live video streaming using a mechanically actuated 360° camera. Users wearing a VR headset can move around and look in any direction while experiencing a real-world environment streamed in real time.
 
