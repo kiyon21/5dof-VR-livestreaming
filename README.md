@@ -79,8 +79,8 @@ Below is a simplified block diagram illustrating how data and signals flow:
 - **Power Supply**: Delivers stable voltage to ensure the motors and controllers operate reliably.
 
 ### MCU Control Platform
-- Uses an **STM32 NUCLEO-F091RC** board (though other MCUs may be used).  
-- Communicates over **UART** to receive position data (x, y) from a computer or direct VR pipeline.  
+- Uses an **Arduino** board (though other MCUs may be used).  
+- Communicates over **SERIAL** to receive position data (x, y) from VR Headset.  
 - Translates coordinates into discrete steps for the stepper motors.
 
 ### VR Headset
@@ -92,7 +92,7 @@ Below is a simplified block diagram illustrating how data and signals flow:
 
 ## Video Streaming Workflow
 1. **Capture**: A 360° camera (e.g., Insta360 ONE X2) captures live equirectangular video.  
-2. **Encoding**: The camera encodes in H.264 / H.265 and sends via RTMP to a local server (running Docker + NGINX or FFmpeg).  
+2. **Encoding**: The camera encodes in H.264 / H.265 and sends via RTMP to a local server (running Docker).  
 3. **Packaging**: The server segments the incoming feed into **HLS** (.m3u8) for compatibility.  
 4. **Playback**: The VR headset uses its native browser/app to load the stream over Wi-Fi. Latency averages ~1 second.
 
@@ -121,40 +121,6 @@ Below is a simplified block diagram illustrating how data and signals flow:
 - **Streaming Latency**: Measured ~1 second behind a live reference clock.  
 - **Mechanical Stability**: T-slot extrusions and bearing-based sliders reduce sway.
 
----
-
-## Getting Started
-
-### Prerequisites
-- **SArduino** (or similar MCU).  
-- **Stepper Motors + Drivers** (e.g., NEMA 23 + TB6600 drivers).  
-- **360° Camera** (e.g., Insta360 ONE X2).  
-- **Meta Quest 2** (recommended VR headset).  
-- **Docker** & basic knowledge of RTMP/HLS streaming (optional but recommended).
-
-### Setup Instructions
-1. **Assemble Gantry**  
-   - Use T-slot extrusions to form a rectangular frame.  
-   - Attach sliders, belts, and stepper motors for X-Y motion.  
-
-2. **Wire Electronics**  
-   - Connect motor drivers to the motors and to the 12V power supply.  
-   - Wire the MCU’s GPIO pins to each driver’s **STEP** and **DIR** inputs.  
-   - Confirm correct grounding and power lines.
-
-3. **Flash MCU Firmware**  
-   - Use arduino or another toolchain to upload the provided firmware.  
-   - Verify correct UART settings (e.g., 115200 or 112500 baud).
-
-4. **Configure Streaming**  
-   - Set up a local RTMP server using Docker.  
-   - Configure your 360° camera to push RTMP to the server.  
-   - The server re-packages to HLS automatically.
-
-5. **VR Headset**  
-   - Connect headset to the same local network as the RTMP/HLS server.  
-   - Navigate to the server’s URL in the headset browser (e.g., `http://YOUR_SERVER_IP:PORT/stream.m3u8`).
-   
 
 ## Safety and Risk Management
 - **Electrical Safety**: Enclose or insulate exposed wires. Use correct fuses and a reliable 12V power supply.  
